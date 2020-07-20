@@ -15,8 +15,11 @@ class User extends Authenticatable
      *
      * @var array
      */
+    protected $table ='users';
+    protected $primaryKey ='usr_id';
+
     protected $fillable = [
-        'name', 'email', 'password',
+        'usr_password','usr_username',
     ];
 
     /**
@@ -25,15 +28,18 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'usr_password',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function stockin()
+    {
+        return $this->hasMany('App\Stockin','usr_id');
+    }
+    public function stockout()
+    {
+        return $this->hasMany('App\Stockout','usr_id');
+    }
+
+
+
 }
