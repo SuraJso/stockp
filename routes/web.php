@@ -18,8 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-/*Route::get('first','FirstController@index'); */
-
-Route::get('product',function(){
-    return view('product');
-});
+Route::get('/typeproduct','TypeproductController@index');
+Route::post('/instypeproduct','TypeproductController@store' );
+Route::post('/edittypeproduct/{id}','TypeproductController@update' );
+Route::post('/deltypeproduct/{id}',  'TypeproductController@destroy');
