@@ -10,7 +10,7 @@
               <!-- DataTales Example -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">ประเภทสินค้า</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">สินค้าเข้า</h6>
                 </div>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">{{session('status')}}</div>
@@ -20,26 +20,34 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                       <thead>
                         <tr>
-                          <th>ID</th>
-                          <th>ชื่อ</th>
-                          <th>อุปกรณ์</th>
+                            <th>ID</th>
+                            <th>สินค้า</th>
+                            <th>จำนวน</th>
+                            <th>ราคา</th>
+                            <th>วันที่</th>
+                            <th>เจ้าของ</th>
+                            <th>อุปกรณ์</th>
                         </tr>
                       </thead>
                       <tfoot>
                         <tr>
-                        <th>ID</th>
-                        <th>ชื่อ</th>
-                        <th>อุปกรณ์</th>
+                            <th>ID</th>
+                            <th>สินค้า</th>
+                            <th>จำนวน</th>
+                            <th>ราคา</th>
+                            <th>วันที่</th>
+                            <th>เจ้าของ</th>
+                            <th>อุปกรณ์</th>
                         </tr>
                       </tfoot>
                       <tbody>
-                        @foreach ($typeproducts as $pt)
+                        @foreach ($product as $pd)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{$pt->pdt_name}}</td>
+                            <td>{{$pd->pd_name}}</td>
                         <td>
-                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModalCenter{{$pt->pdt_id}}">แก้ไข</button>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delModalCenter{{$pt->pdt_id}}">ลบ</button>
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModalCenter{{$pd->pdt_id}}">แก้ไข</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delModalCenter{{$pd->pdt_id}}">ลบ</button>
                         </td>
                         </tr>
                         @endforeach
@@ -63,8 +71,16 @@
                 <div class="modal-body">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="typeproduct_name" class="col-form-label">ชื่อประเภทสินค้า</label>
-                        <input type="text" name="pdt_name" class="form-control" id="typename">
+                        <label for="productname" class="col-form-label">ชื่อสินค้า</label>
+                        <input type="text" name="pd_name" class="form-control" id="pdname">
+                        <label for="productcount" class="col-form-label">จำนวนสินค้า</label>
+                        <input type="number" name="pd_count" class="form-control" id="pdcount">
+                        <label for="product_typeproduct" class="col-form-label">ประเภทสินค้า</label>
+                        <select name="pdt_id">
+                            @foreach ($product as $pd)
+                            <option value="{{$pd->pdt_id}}">{{$pd->pdt_name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -76,8 +92,8 @@
             </div>
         </div>
         <!-- Modal Edit -->
-        @foreach ($typeproducts as $pt)
-        <div class="modal fade" id="editModalCenter{{$pt->pdt_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        @foreach ($typeproducts as $pd)
+        <div class="modal fade" id="editModalCenter{{$pd->pdt_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -86,12 +102,20 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
-                <form action="{{url('edittypeproduct/'.$pt->pdt_id)}}" method="POST">
+                <form action="{{url('edittypeproduct/'.$pd->pdt_id)}}" method="POST">
                 <div class="modal-body">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="typeproduct_name" class="col-form-label">ชื่อประเภทสินค้า</label>
-                        <input type="text" name="pdt_name" class="form-control" id="typename" value="{{$pt->pdt_name}}">
+                        <label for="productname" class="col-form-label">ชื่อสินค้า</label>
+                        <input type="text" name="pd_name" class="form-control" id="pdname">
+                        <label for="productcount" class="col-form-label">จำนวนสินค้า</label>
+                        <input type="number" name="pd_count" class="form-control" id="pdcount">
+                        <label for="product_typeproduct" class="col-form-label">ประเภทสินค้า</label>
+                        <select name="pdt_id">
+                            @foreach ($product as $pd)
+                            <option value="{{$pd->pdt_id}}">{{$pd->pdt_name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -104,8 +128,8 @@
         </div>
         @endforeach
         <!-- Modal Delete -->
-        @foreach ($typeproducts as $pt)
-        <div class="modal fade" id="delModalCenter{{$pt->pdt_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        @foreach ($typeproducts as $pd)
+        <div class="modal fade" id="delModalCenter{{$pd->pdt_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -114,10 +138,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
-                <form action="{{url('deltypeproduct/'.$pt->pdt_id)}}" method="post">{{ csrf_field() }}
+                <form action="{{url('deltypeproduct/'.$pd->pdt_id)}}" method="post">{{ csrf_field() }}
                 <div class="modal-body">
                     <div class="form-group">
-                        คุณจะลบข้อมุล {{$pt->pdt_name}} จริงใช่มั้ย
+                        คุณจะลบข้อมุล {{$pd->pd_name}} จริงใช่มั้ย
                     </div>
                 </div>
                 <div class="modal-footer">
