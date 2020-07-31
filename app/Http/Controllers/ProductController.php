@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 Use App\Product;
+use App\Typeproduct;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -13,8 +14,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product = (Product::with('product.typeproduct')->get());
-        return view('product',compact('product'));
+        $products = Product::with('typeproduct')->get();
+        $typeproducts = Typeproduct::all();
+        return view('product',compact('products','typeproducts'));
     }
 
     /**
@@ -35,7 +37,13 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $products = new Product;
+        $products->pd_name = $request->input('pd_name');
+        $products->pd_count = $request->input('pd_count');
+        $products->pdt_id = $request->input('pdt_id');
+
+        $products->save();
+        return redirect('/product')->with('status','เพิ่มข้อมูลสำเร็จ');
     }
 
     /**
@@ -69,7 +77,13 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $products = Product::find($id);
+        $products->pd_name = $request->input('pd_name');
+        $products->pd_count = $request->input('pd_count');
+        $products->pdt_id = $request->input('pdt_id');
+
+        $products->update();
+        return redirect('/product')->with('status','แก้ไขสำเร็จ');
     }
 
     /**
@@ -80,6 +94,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $products = Product::findOrFail($id);
+        $products->delete();
+        return redirect('/product')->with('status','ลบสำเร็จ');
     }
 }

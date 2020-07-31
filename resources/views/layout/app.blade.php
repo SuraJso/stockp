@@ -65,14 +65,14 @@
       </li>
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+      <li class="nav-item {{'product' == request()->path() ? 'active' : ''}}">
+        <a class="nav-link" href="/product">
           <i class="fas fa-fw fa-table"></i>
           <span>สินค้า</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
+      <li class="nav-item ">
         <a class="nav-link" href="tables.html">
           <i class="fas fa-fw fa-table"></i>
           <span>เข้า</span></a>

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('product');
 });
 /*Table typeproduct */
 Route::get('/typeproduct','TypeproductController@index');
@@ -23,3 +23,7 @@ Route::post('/instypeproduct','TypeproductController@store' );
 Route::post('/edittypeproduct/{id}','TypeproductController@update' );
 Route::post('/deltypeproduct/{id}',  'TypeproductController@destroy');
 /*Table product */
+Route::get('/product','ProductController@index');
+Route::post('/insproduct','ProductController@store' );
+Route::post('/editproduct/{id}','ProductController@update' );
+Route::post('/delproduct/{id}',  'ProductController@destroy');
