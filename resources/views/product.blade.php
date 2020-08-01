@@ -52,7 +52,7 @@
                       </tbody>
                     </table>
                   </div>
-                   </>
+                </div>
               </div>
 
         <!-- Modal -->
