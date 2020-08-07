@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('product');
+    return view('login');
 });
 /*Table typeproduct */
 Route::get('/typeproduct','TypeproductController@index');
