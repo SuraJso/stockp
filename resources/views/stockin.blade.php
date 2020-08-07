@@ -41,7 +41,7 @@
                         </tr>
                       </tfoot>
                       <tbody>
-                        @foreach ($product as $pd)
+                        @foreach ($products as $pd)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{$pd->pd_name}}</td>
@@ -72,15 +72,23 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="productname" class="col-form-label">ชื่อสินค้า</label>
-                        <input type="text" name="pd_name" class="form-control" id="pdname">
-                        <label for="productcount" class="col-form-label">จำนวนสินค้า</label>
-                        <input type="number" name="pd_count" class="form-control" id="pdcount">
-                        <label for="product_typeproduct" class="col-form-label">ประเภทสินค้า</label>
-                        <select name="pdt_id">
-                            @foreach ($product as $pd)
-                            <option value="{{$pd->pdt_id}}">{{$pd->pdt_name}}</option>
+                        <select name="pd_id">
+                            @foreach ($products as $pd)
+                            <option value="{{$pd->pd_id}}">{{$pd->pd_name}}</option>
                             @endforeach
                         </select>
+                        <label for="stockincount" class="col-form-label">จำนวนสินค้า</label>
+                        <input type="number" name="stockin_count" class="form-control" id="stockincount">
+                        <label for="stockinprice" class="col-form-label">ราคาสินค้า</label>
+                        <input type="number" name="stockin_price" class="form-control" id="stockinprice">
+                        <div class='input-group date' id='datetimepicker'>
+                        <label for="stockin_date" class="col-form-label">วันที่</label>
+                            <input type='text' class="form-control" name="stockin_date" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                        <input type="้hidden" name="usr_id" class="form-control" id="usrid">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -154,4 +162,13 @@
         </div>
         @endforeach
 
+@endsection
+@section('js')
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker').datetimepicker({
+
+            });
+        });
+    </script>
 @endsection

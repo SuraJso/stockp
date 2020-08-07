@@ -72,15 +72,15 @@
       </li>
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item ">
-        <a class="nav-link" href="tables.html">
+      <li class="nav-item {{'stockin' == request()->path() ? 'active' : ''}} ">
+        <a class="nav-link" href="/stockin">
           <i class="fas fa-fw fa-table"></i>
           <span>เข้า</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+      <li class="nav-item {{'stockout' == request()->path() ? 'active' : ''}}">
+        <a class="nav-link" href="/stockout">
           <i class="fas fa-fw fa-table"></i>
           <span>ออก</span></a>
       </li>
@@ -207,6 +207,9 @@
 
   <!-- Page level custom scripts -->
   <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
+
+  <!-- Date picker -->
+  @yield('js')
 
 </body>
 
