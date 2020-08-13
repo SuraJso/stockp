@@ -10,7 +10,7 @@
               <!-- DataTales Example -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">สินค้าเข้า</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">สินค้าออก</h6>
                 </div>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">{{session('status')}}</div>
@@ -81,9 +81,9 @@
                             <option value=""></option>
 
                         </select>
-                        <label for="stockincount" class="col-form-label">จำนวนสินค้า</label>
+                        <label for="stockoutcount" class="col-form-label">จำนวนสินค้า</label>
                         <input type="number" name="stockin_count" class="form-control" id="stockincount">
-                        <label for="stockinprice" class="col-form-label">ราคาสินค้า</label>
+                        <label for="stockoutprice" class="col-form-label">ราคาสินค้า</label>
                         <input type="number" name="stockin_price" class="form-control" id="stockinprice">
                         <label for="date" class="col-form-label">วันที่</label>
                         <input type="date" class="form-control" type="text">

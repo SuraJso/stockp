@@ -27,3 +27,16 @@ Route::get('/product','ProductController@index');
 Route::post('/insproduct','ProductController@store' );
 Route::post('/editproduct/{id}','ProductController@update' );
 Route::post('/delproduct/{id}',  'ProductController@destroy');
+
+
+Route::get('in', function () {
+    return view('stockin');
+});
+
+Route::get('index', function () {
+    return view('index');
+});
+
+Route::get('edituser', function () {
+    return view('edituser');
+});
