@@ -71,7 +71,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
-                <form action="/instypeproduct" method="POST">
+                <form action="/" method="POST">
                 <div class="modal-body">
                     {{ csrf_field() }}
                     <div class="form-group">
@@ -82,9 +82,9 @@
 
                         </select>
                         <label for="stockoutcount" class="col-form-label">จำนวนสินค้า</label>
-                        <input type="number" name="stockin_count" class="form-control" id="stockincount">
+                        <input type="number" name="stockout_count" class="form-control" id="stockoutcount">
                         <label for="stockoutprice" class="col-form-label">ราคาสินค้า</label>
-                        <input type="number" name="stockin_price" class="form-control" id="stockinprice">
+                        <input type="number" name="stockout_price" class="form-control" id="stockoutprice">
                         <label for="date" class="col-form-label">วันที่</label>
                         <input type="date" class="form-control" type="text">
 
@@ -99,68 +99,70 @@
             </div>
             </div>
         </div>
-   <?php  /*   <!-- Modal Edit -->
-        @foreach ($typeproducts as $pd)
-        <div class="modal fade" id="editModalCenter{{$pd->pdt_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">แก้ไขข้อมูล</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <form action="{{url('edittypeproduct/'.$pd->pdt_id)}}" method="POST">
-                <div class="modal-body">
-                    {{ csrf_field() }}
-                    <div class="form-group">
-                        <label for="productname" class="col-form-label">ชื่อสินค้า</label>
-                        <input type="text" name="pd_name" class="form-control" id="pdname">
-                        <label for="productcount" class="col-form-label">จำนวนสินค้า</label>
-                        <input type="number" name="pd_count" class="form-control" id="pdcount">
-                        <label for="product_typeproduct" class="col-form-label">ประเภทสินค้า</label>
-                        <select name="pdt_id">
-                            @foreach ($product as $pd)
-                            <option value="{{$pd->pdt_id}}">{{$pd->pdt_name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
-                </div>
-                </form>
-            </div>
-            </div>
-        </div>
-        @endforeach
-        <!-- Modal Delete -->
-        @foreach ($typeproducts as $pd)
-        <div class="modal fade" id="delModalCenter{{$pd->pdt_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">ลบข้อมูล</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <form action="{{url('deltypeproduct/'.$pd->pdt_id)}}" method="post">{{ csrf_field() }}
-                <div class="modal-body">
-                    <div class="form-group">
-                        คุณจะลบข้อมุล {{$pd->pd_name}} จริงใช่มั้ย
-                    </div>
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-danger">Delete</button>
-                </div>
-                </form>
-            </div>
-            </div>
-        </div>
-        @endforeach
-*/?>
 
+        <!-- Modal edit -->
+        <div class="modal fade" id="editModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">เพิ่มข้อมูล</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <form action="/" method="POST">
+            <div class="modal-body">
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <label for="productname" class="col-form-label">ชื่อสินค้า</label>
+                    <select name="pd_id">
+
+                        <option value=""></option>
+
+                    </select>
+                    <label for="stockoutcount" class="col-form-label">จำนวนสินค้า</label>
+                    <input type="number" name="stockout_count" class="form-control" id="stockoutcount">
+                    <label for="stockoutprice" class="col-form-label">ราคาสินค้า</label>
+                    <input type="number" name="stockout_price" class="form-control" id="stockoutprice">
+                    <label for="date" class="col-form-label">วันที่</label>
+                    <input type="date" class="form-control" type="text">
+
+                    <input type="hidden" name="usr_id" id="usrid" value="">
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+            </form>
+        </div>
+        </div>
+    </div>
+
+    <!-- Modal Delete -->
+
+    <div class="modal fade" id="delModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">ลบข้อมูล</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <form action="/" method="post">
+                {{ csrf_field() }}
+            <div class="modal-body">
+                <div class="form-group">
+                    คุณจะลบข้อมูล ... จริงใช่มั้ย
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-danger">Delete</button>
+            </div>
+            </form>
+        </div>
+        </div>
+    </div>
 @endsection

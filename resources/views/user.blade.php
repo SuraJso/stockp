@@ -50,7 +50,7 @@
                 </div>
               </div>
 
-        <!-- Modal
+              <!-- Modal -->
         <div class="modal fade" id="addModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -60,19 +60,25 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
-                <form action="/insproduct" method="POST">
+                <form action="/" method="POST">
                 <div class="modal-body">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="productname" class="col-form-label">ชื่อสินค้า</label>
-                        <input type="text" name="pd_name" class="form-control" id="pdname">
-                        <label for="productcount" class="col-form-label">จำนวนสินค้า</label>
-                        <input type="number" name="pd_count" class="form-control" id="pdcount">
-                        <label for="product_typeproduct" class="col-form-label">ประเภทสินค้า</label>
-                        <select name="pdt_id">
-                            @foreach ($typeproducts as $pt)
-                                    <option value="{{$pt->pdt_id}}">{{$pt->pdt_name}}</option>
-                            @endforeach
+                        <label for="username" class="col-form-label">ชื่อ</label>
+                        <input type="text" name="usr_usrname" class="form-control" >
+                        <label for="password" class="col-form-label">รหัสผ่าน</label>
+                        <input type="number" name="usr_password" class="form-control">
+                        <label for="level" class="col-form-label">Level</label>
+                        <select name="usr_level">
+                                    <option value="0">user</option>
+                                    <option value="1">admin</option>
+
+                        </select>
+                        <label for="status" class="col-form-label">Status</label>
+                        <select name="usr_status">
+                            <option value="0">user</option>
+                            <option value="1">admin</option>
+
                         </select>
                     </div>
                 </div>
@@ -83,5 +89,73 @@
                 </form>
             </div>
             </div>
-        </div> -->
+        </div>
+        <!-- Modal edit -->
+        <div class="modal fade" id="editModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">เพิ่มข้อมูล</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <form action="/" method="POST">
+                <div class="modal-body">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <label for="username" class="col-form-label">ชื่อ</label>
+                        <input type="text" name="usr_usrname" class="form-control" value="" >
+                        <label for="password" class="col-form-label">รหัสผ่าน</label>
+                        <input type="number" name="usr_password" class="form-control" value="">
+                        <label for="level" class="col-form-label">Level</label>
+                        <select name="usr_level">
+                                    <option value="0">user</option>
+                                    <option value="1">admin</option>
+
+                        </select>
+                        <label for="status" class="col-form-label">Status</label>
+                        <select name="usr_status">
+                            <option value="0">user</option>
+                            <option value="1">admin</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                </form>
+            </div>
+            </div>
+        </div>
+
+        <!-- Modal Delete -->
+
+        <div class="modal fade" id="delModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">ลบข้อมูล</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <form action="/" method="post">
+                    {{ csrf_field() }}
+                <div class="modal-body">
+                    <div class="form-group">
+                        คุณจะลบข้อมูล ... จริงใช่มั้ย
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+                </form>
+            </div>
+            </div>
+        </div>
+
 @endsection
