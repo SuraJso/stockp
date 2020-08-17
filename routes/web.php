@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('login');
 });
-Route::post('/login','LoginController@login');
 
+Route::post('/login','LoginController@login');
 /*Table typeproduct */
 Route::get('/typeproduct','TypeproductController@index');
 Route::post('/instypeproduct','TypeproductController@store' );
@@ -29,6 +29,8 @@ Route::get('/product','ProductController@index');
 Route::post('/insproduct','ProductController@store' );
 Route::post('/editproduct/{id}','ProductController@update' );
 Route::post('/delproduct/{id}',  'ProductController@destroy');
+/*index */
+Route::get('/index','IndexController@index');
 
 
 

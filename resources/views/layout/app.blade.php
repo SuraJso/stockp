@@ -123,8 +123,8 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                @if(isset(Auth::user()->user))
-                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::user()->user}}</span>
+                @if(isset(Auth::user()->usr_username))
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::user()->usr_username}}</span>
                 @else
                     <script>window.location="/";</script>
                 @endif
