@@ -13,10 +13,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/* Login */
 Route::get('/', function () {
     return view('login');
 });
+Route::post('/login','LoginController@login');
+
 /*Table typeproduct */
 Route::get('/typeproduct','TypeproductController@index');
 Route::post('/instypeproduct','TypeproductController@store' );
@@ -29,14 +31,4 @@ Route::post('/editproduct/{id}','ProductController@update' );
 Route::post('/delproduct/{id}',  'ProductController@destroy');
 
 
-Route::get('in', function () {
-    return view('stockin');
-});
 
-Route::get('index', function () {
-    return view('index');
-});
-
-Route::get('edituser', function () {
-    return view('edituser');
-});

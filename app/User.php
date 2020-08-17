@@ -19,7 +19,10 @@ class User extends Authenticatable
     protected $primaryKey ='usr_id';
 
     protected $fillable = [
-        'usr_password','usr_username',
+        'usr_username',
+        'usr_password',
+        'usr_level',
+        'usr_status',
     ];
 
     /**
@@ -38,6 +41,11 @@ class User extends Authenticatable
     public function stockout()
     {
         return $this->hasMany('App\Stockout','usr_id');
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->usr_password;
     }
 
 
