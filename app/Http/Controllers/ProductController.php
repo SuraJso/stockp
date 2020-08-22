@@ -39,7 +39,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $products = new Product;
-        $products->pd_name = $request->input('pd_name');
+        $products->pd_name = $request->pd_name;
         $products->pd_count = $request->input('pd_count');
         $products->pdt_id = $request->input('pdt_id');
 

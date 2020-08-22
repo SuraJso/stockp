@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -13,7 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        return view('user',compact('users'));
     }
 
     /**
@@ -34,7 +37,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $users = new User;
+        $users = $request->usr_usrname;
+        $users = $request->Hash::make('usr_password');
+        $users = $request->usr_level;
+        $users = $request->usr_status;
+
+        $users->save();
+
+        return redirect('/user')->with('status','เพิ่มข้อมูลสำเร็จ');
+
     }
 
     /**

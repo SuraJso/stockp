@@ -36,8 +36,13 @@
                             <th>อุปกรณ์</th>
                         </tr>
                       </tfoot>
+                      @foreach ($users as $user)
                       <tbody>
                         <tr>
+                        <td>{{$user->usr_id}}</td>
+                        <td>{{$user->usr_username}}</td>
+                        <td>@if ($user->usr_status === 0) ไม่สามรถใช้งานได้ @endif ใช้งานได้</td>
+                        <td>@if ($user->usr_level === 0) สมาชิก @endif แอดมิน</td>
                         <td>
                         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModalCenter">แก้ไข</button>
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delModalCenter">ลบ</button>
@@ -100,7 +105,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
-                <form action="/" method="POST">
+                <form action="/edituser" method="POST">
                 <div class="modal-body">
                     {{ csrf_field() }}
                     <div class="form-group">

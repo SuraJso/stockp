@@ -19,6 +19,7 @@ Route::get('/', function () {
 });
 
 Route::post('/login','LoginController@login');
+Route::get('/logout','LoginController@logout');
 /*Table typeproduct */
 Route::get('/typeproduct','TypeproductController@index');
 Route::post('/instypeproduct','TypeproductController@store' );
@@ -32,5 +33,8 @@ Route::post('/delproduct/{id}',  'ProductController@destroy');
 /*index */
 Route::get('/index','IndexController@index');
 
+/*user*/
+Route::get('/user','UserController@index');
+Route::post('/insuser','UserController@store');
 
 
