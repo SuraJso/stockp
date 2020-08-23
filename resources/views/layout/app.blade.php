@@ -83,11 +83,18 @@
           <span>เข้า</span></a>
       </li>
 
-      <!-- Nav Item - Tables -->
-      <li class="nav-item {{'stockout' == request()->path() ? 'active' : ''}}">
+    <!-- Nav Item - Tables -->
+        <li class="nav-item {{'stockout' == request()->path() ? 'active' : ''}}">
         <a class="nav-link" href="/stockout">
+            <i class="fas fa-fw fa-table"></i>
+            <span>ออก</span></a>
+        </li>
+
+    <!-- Nav Item - Tables -->
+      <li class="nav-item {{'user' == request()->path() ? 'active' : ''}}">
+        <a class="nav-link" href="/user">
           <i class="fas fa-fw fa-table"></i>
-          <span>ออก</span></a>
+          <span>สมาชิก</span></a>
       </li>
 
       <!-- Divider -->

@@ -14,10 +14,10 @@ class User_test extends Seeder
     public function run()
     {
         User::create([
-            'usr_username' => 'test',
+            'usr_username' => 'test1',
             'usr_password' => Hash::make('test'),
-            'usr_level' => 1,
-            'usr_status' => 1
+            'usr_level' => 0,
+            'usr_status' => 0
         ]);
     }
 }

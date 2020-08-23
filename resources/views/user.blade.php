@@ -41,8 +41,8 @@
                         <tr>
                         <td>{{$user->usr_id}}</td>
                         <td>{{$user->usr_username}}</td>
-                        <td>@if ($user->usr_status == 0) ไม่สามรถใช้งานได้ @endif ใช้งานได้</td>
-                        <td>@if ($user->usr_level == 0) สมาชิก @endif แอดมิน</td>
+                        <td>@if ($user->usr_status == 0) ไม่สามรถใช้งานได้@else ใช้งานได้ @endif</td>
+                        <td>@if ($user->usr_level == 0) สมาชิก @else แอดมิน @endif</td>
                         <td>
                         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModalCenter">แก้ไข</button>
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delModalCenter">ลบ</button>
@@ -65,14 +65,14 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
-                <form action="/" method="POST">
+                <form action="/insuser" method="POST">
                 <div class="modal-body">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="username" class="col-form-label">ชื่อ</label>
-                        <input type="text" name="usr_usrname" class="form-control" >
+                        <input type="text" name="usr_username" class="form-control">
                         <label for="password" class="col-form-label">รหัสผ่าน</label>
-                        <input type="number" name="usr_password" class="form-control">
+                        <input type="password" name="usr_password" class="form-control">
                         <label for="level" class="col-form-label">Level</label>
                         <select name="usr_level">
                                     <option value="0">user</option>
@@ -110,7 +110,7 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="username" class="col-form-label">ชื่อ</label>
-                        <input type="text" name="usr_usrname" class="form-control" value="" >
+                        <input type="text" name="usr_username" class="form-control" value="" >
                         <label for="password" class="col-form-label">รหัสผ่าน</label>
                         <input type="number" name="usr_password" class="form-control" value="">
                         <label for="level" class="col-form-label">Level</label>
