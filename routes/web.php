@@ -36,5 +36,8 @@ Route::get('/index','IndexController@index');
 /*user*/
 Route::get('/user','UserController@index');
 Route::post('/insuser','UserController@store');
+Route::post('/edituser/{id}','UserController@update' );
+Route::post('/deluser/{id}','UserController@destroy' );
+
 
 

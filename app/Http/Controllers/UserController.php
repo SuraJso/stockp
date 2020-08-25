@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\userRequest;
 
 class UserController extends Controller
 {
@@ -35,17 +36,18 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(userRequest $request)
     {
-        $users = new User;
-        $users->usr_username = $request->usr_username;
-        $users->usr_password = Hash::make($request->usr_password);
-        $users->usr_level = $request->usr_level;
-        $users->usr_status = $request->usr_status;
 
-        $users->save();
+            $users = new User;
+            $users->usr_username = $request->usr_username;
+            $users->usr_password = Hash::make($request->usr_password);
+            $users->usr_level = $request->usr_level;
+            $users->usr_status = $request->usr_status;
 
-        return redirect('/user')->with('status','เพิ่มข้อมูลสำเร็จ');
+            $users->save();
+
+            return redirect('/user')->with('status','เพิ่มข้อมูลสำเร็จ');
 
     }
 
@@ -80,7 +82,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $users = User::find($id);
+        $users->usr_username = $request->usr_username;
+        $users->usr_password = Hash::make($request->usr_password);
+        $users->usr_level = $request->usr_level;
+        $users->usr_status = $request->usr_status;
+
+        $users->update();
+
+        return redirect('/user')->with('status','แก้ไขสำเร็จ');
     }
 
     /**
@@ -91,6 +101,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $users = User::findOrFail($id);
+        $users->delete();
+        return redirect('/user')->with('status','ลบสำเร็จ');
     }
 }

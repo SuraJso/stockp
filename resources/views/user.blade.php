@@ -15,6 +15,15 @@
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">{{session('status')}}</div>
                 @endif
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="card-body">
                   <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -39,13 +48,13 @@
                       @foreach ($users as $user)
                       <tbody>
                         <tr>
-                        <td>{{$user->usr_id}}</td>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{$user->usr_username}}</td>
-                        <td>@if ($user->usr_status == 0) ไม่สามรถใช้งานได้@else ใช้งานได้ @endif</td>
+                        <td>@if ($user->usr_status == 0) ใช้งานได้@else ไม่สามารถใช้งานได้ @endif</td>
                         <td>@if ($user->usr_level == 0) สมาชิก @else แอดมิน @endif</td>
                         <td>
-                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModalCenter">แก้ไข</button>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delModalCenter">ลบ</button>
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModalCenter{{ $user->usr_id }}">แก้ไข</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delModalCenter{{ $user->usr_id }}">ลบ</button>
                         </td>
                         </tr>
                         @endforeach
@@ -75,8 +84,8 @@
                         <input type="password" name="usr_password" class="form-control">
                         <label for="level" class="col-form-label">Level</label>
                         <select name="usr_level">
-                                    <option value="0">user</option>
-                                    <option value="1">admin</option>
+                                    <option value="0">ใช้งานได้</option>
+                                    <option value="1">ไม่สามารถใช้งานได้</option>
 
                         </select>
                         <label for="status" class="col-form-label">Status</label>
@@ -95,8 +104,9 @@
             </div>
             </div>
         </div>
+        @foreach ($users as $user)
         <!-- Modal edit -->
-        <div class="modal fade" id="editModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="editModalCenter{{ $user->usr_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -105,25 +115,23 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
-                <form action="/edituser" method="POST">
+                <form action="{{url('edituser/'.$user->usr_id)}}" method="POST">
                 <div class="modal-body">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="username" class="col-form-label">ชื่อ</label>
-                        <input type="text" name="usr_username" class="form-control" value="" >
+                        <input type="text" name="usr_username" class="form-control" readonly value="{{ $user->usr_username }}" >
                         <label for="password" class="col-form-label">รหัสผ่าน</label>
-                        <input type="number" name="usr_password" class="form-control" value="">
-                        <label for="level" class="col-form-label">Level</label>
-                        <select name="usr_level">
-                                    <option value="0">user</option>
-                                    <option value="1">admin</option>
-
-                        </select>
-                        <label for="status" class="col-form-label">Status</label>
+                        <input type="password" name="usr_password" class="form-control" value="{{ $user->usr_password }}">
+                        <label for="status" class="col-form-label">สถานะ</label>
                         <select name="usr_status">
-                            <option value="0">user</option>
-                            <option value="1">admin</option>
-
+                            <option @if($user->usr_status===0) selected='selected' @endif value="0">ใช้งานได้</option>
+                            <option @if($user->usr_status===1) selected='selected' @endif value="1">ไม่สามารถใช้งานได้</option>
+                        </select>
+                        <label for="level" class="col-form-label">ระดับ</label>
+                        <select name="usr_level">
+                            <option @if($user->usr_level===0) selected='selected' @endif value="0">สมาชิก</option>
+                            <option @if($user->usr_level===1) selected='selected' @endif value="1">แอดมิน</option>
                         </select>
                     </div>
                 </div>
@@ -135,10 +143,11 @@
             </div>
             </div>
         </div>
+        @endforeach
 
         <!-- Modal Delete -->
-
-        <div class="modal fade" id="delModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        @foreach ($users as $user)
+        <div class="modal fade" id="delModalCenter{{ $user->usr_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -147,11 +156,11 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
-                <form action="/" method="post">
+                <form action="{{url('deluser/'.$user->usr_id)}}" method="post">
                     {{ csrf_field() }}
                 <div class="modal-body">
                     <div class="form-group">
-                        คุณจะลบข้อมูล ... จริงใช่มั้ย
+                        คุณจะลบข้อมูล {{ $user->usr_username }} จริงใช่มั้ย
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -162,5 +171,6 @@
             </div>
             </div>
         </div>
+        @endforeach
 
 @endsection
