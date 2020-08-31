@@ -39,5 +39,15 @@ Route::post('/insuser','UserController@store');
 Route::post('/edituser/{id}','UserController@update' );
 Route::post('/deluser/{id}','UserController@destroy' );
 
+Route::get('/stockin','StockinController@index');
+Route::post('/insstockin','StockinController@store');
+Route::post('/editstockin/{id}','StockinController@update');
+Route::post('/delstockin/{id}','StockinController@destroy' );
+
+Route::get('/stockout','StockoutController@index');
+Route::post('/insstockout','StockoutController@store');
+Route::post('/editstockout/{id}','StockoutController@update');
+Route::post('/delstockout/{id}','StockoutController@destroy' );
+
 
 

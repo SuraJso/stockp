@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Stockin;
 use Illuminate\Http\Request;
+use App\Stockout;
 use App\Product;
-
-class StockinController extends Controller
+class StockoutController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +14,9 @@ class StockinController extends Controller
      */
     public function index()
     {
-        $stockins = Stockin::with('product','user')->get();
+        $stockouts = Stockout::with('product','user')->get();
         $products = Product::all();
-        return view('stockin',compact('stockins','products'));
-
+        return view('stockout',compact('stockouts','products'));
     }
 
     /**
@@ -28,8 +26,9 @@ class StockinController extends Controller
      */
     public function create()
     {
-
+        //
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -38,15 +37,15 @@ class StockinController extends Controller
      */
     public function store(Request $request)
     {
-        $stockins = new Stockin;
-        $stockins->pd_id = $request->pd_id;
-        $stockins->stockin_count = $request->stockin_count;
-        $stockins->stockin_price = $request->stockin_price;
-        $stockins->stockin_date = $request->stockin_date;
-        $stockins->usr_id = $request->usr_id;
+        $stockouts = new Stockout;
+        $stockouts->pd_id = $request->pd_id;
+        $stockouts->stockout_count = $request->stockout_count;
+        $stockouts->stockout_price = $request->stockout_price;
+        $stockouts->stockout_date = $request->stockout_date;
+        $stockouts->usr_id = $request->usr_id;
 
-        $stockins->save();
-        return redirect('/stockin')->with('status','เพิ่มข้อมูลสำเร็จ');
+        $stockouts->save();
+        return redirect('/stockout')->with('status','เพิ่มข้อมูลสำเร็จ');
     }
 
     /**
@@ -80,15 +79,15 @@ class StockinController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $stockins = Stockin::find($id);
-        $stockins->pd_id = $request->pd_id;
-        $stockins->stockin_count = $request->stockin_count;
-        $stockins->stockin_price = $request->stockin_price;
-        $stockins->stockin_date = $request->stockin_date;
-        $stockins->usr_id = $request->usr_id;
+        $stockouts = Stockout::find($id);
+        $stockouts->pd_id = $request->pd_id;
+        $stockouts->stockout_count = $request->stockout_count;
+        $stockouts->stockout_price = $request->stockout_price;
+        $stockouts->stockout_date = $request->stockout_date;
+        $stockouts->usr_id = $request->usr_id;
 
-        $stockins->update();
-        return redirect('/stockin')->with('status','แก้ไขสำเร็จ');
+        $stockouts->update();
+        return redirect('/stockout')->with('status','แก้ไขสำเร็จ');
     }
 
     /**
@@ -99,8 +98,8 @@ class StockinController extends Controller
      */
     public function destroy($id)
     {
-        $stockins = Stockin::findOrFail($id);
-        $stockins->delete();
-        return redirect('/stockin')->with('status','ลบสำเร็จ');
+        $stockouts = Stockout::findOrFail($id);
+        $stockouts->delete();
+        return redirect('/stockout')->with('status','ลบสำเร็จ');
     }
 }

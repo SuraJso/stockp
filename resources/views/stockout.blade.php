@@ -41,20 +41,20 @@
                         </tr>
                       </tfoot>
                       <tbody>
-
+                        @foreach ($stockouts as $outitem)
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $outitem->product->pd_name }}</td>
+                            <td>{{ $outitem->stockout_count }}</td>
+                            <td>{{ $outitem->stockout_price }}</td>
+                            <td>{{ $outitem->stockout_date }}</td>
+                            <td>{{ $outitem->user->usr_username }}</td>
                             <td>
-                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModalCenter">แก้ไข</button>
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delModalCenter">ลบ</button>
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModalCenter{{ $outitem->stockout_id }}">แก้ไข</button>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delModalCenter{{ $outitem->stockout_id }}">ลบ</button>
                             </td>
                         </tr>
-
+                        @endforeach
                       </tbody>
                     </table>
                   </div>
@@ -71,24 +71,24 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
-                <form action="/" method="POST">
+                <form action="/insstockout" method="POST">
                 <div class="modal-body">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="productname" class="col-form-label">ชื่อสินค้า</label>
                         <select name="pd_id">
-
-                            <option value=""></option>
-
+                            @foreach ($products as $pd)
+                            <option value="{{$pd->pd_id}}">{{$pd->pd_name}}</option>
+                            @endforeach
                         </select>
                         <label for="stockoutcount" class="col-form-label">จำนวนสินค้า</label>
                         <input type="number" name="stockout_count" class="form-control" id="stockoutcount">
                         <label for="stockoutprice" class="col-form-label">ราคาสินค้า</label>
                         <input type="number" name="stockout_price" class="form-control" id="stockoutprice">
                         <label for="date" class="col-form-label">วันที่</label>
-                        <input type="date" class="form-control" type="text">
+                        <input type="date" class="form-control" name="stockout_date">
 
-                        <input type="hidden" name="usr_id" id="usrid" value="">
+                        <input type="hidden" name="usr_id" id="usrid" value="{{ Auth::user()->usr_id}}">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -99,35 +99,35 @@
             </div>
             </div>
         </div>
-
+        @foreach ($stockouts as $outitem)
         <!-- Modal edit -->
-        <div class="modal fade" id="editModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="editModalCenter{{ $outitem->stockout_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalCenterTitle">เพิ่มข้อมูล</h5>
+            <h5 class="modal-title" id="exampleModalCenterTitle">แก้ไขข้อมูล</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
-            <form action="/" method="POST">
+            <form action="{{url('editstockout/'.$outitem->stockout_id)}}" method="POST">
             <div class="modal-body">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="productname" class="col-form-label">ชื่อสินค้า</label>
                     <select name="pd_id">
-
-                        <option value=""></option>
-
+                        @foreach ($products as $pd)
+                        <option @if($outitem->pd_id===$pd->pd_id) selected='selected' @endif value="{{$pd->pd_id}}">{{$pd->pd_name}}</option>
+                        @endforeach
                     </select>
                     <label for="stockoutcount" class="col-form-label">จำนวนสินค้า</label>
-                    <input type="number" name="stockout_count" class="form-control" id="stockoutcount">
+                    <input type="number" name="stockout_count" class="form-control" id="stockoutcount" value="{{ $outitem->stockout_count }}">
                     <label for="stockoutprice" class="col-form-label">ราคาสินค้า</label>
-                    <input type="number" name="stockout_price" class="form-control" id="stockoutprice">
+                    <input type="number" name="stockout_price" class="form-control" id="stockoutprice" value="{{ $outitem->stockout_price }}">
                     <label for="date" class="col-form-label">วันที่</label>
-                    <input type="date" class="form-control" type="text">
+                    <input type="date" class="form-control" name="stockout_date" value="{{ $outitem->stockout_date }}">
 
-                    <input type="hidden" name="usr_id" id="usrid" value="">
+                    <input type="hidden" name="usr_id" id="usrid" value="{{ Auth::user()->usr_id}}">
                 </div>
             </div>
             <div class="modal-footer">
@@ -138,10 +138,10 @@
         </div>
         </div>
     </div>
-
+    @endforeach
     <!-- Modal Delete -->
-
-    <div class="modal fade" id="delModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    @foreach ($stockouts as $outitem)
+    <div class="modal fade" id="delModalCenter{{ $outitem->stockout_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -150,11 +150,11 @@
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
-            <form action="/" method="post">
+            <form action="{{url('delstockout/'.$outitem->stockout_id)}}" method="post">
                 {{ csrf_field() }}
             <div class="modal-body">
                 <div class="form-group">
-                    คุณจะลบข้อมูล ... จริงใช่มั้ย
+                    คุณจะลบข้อมูล {{ $outitem->product->pd_name }} จริงใช่มั้ย
                 </div>
             </div>
             <div class="modal-footer">
@@ -165,4 +165,5 @@
         </div>
         </div>
     </div>
+    @endforeach
 @endsection

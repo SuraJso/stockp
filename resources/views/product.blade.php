@@ -104,7 +104,7 @@
                 <div class="modal-body">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="product_name" class="col-form-label">ชื่อประเภทสินค้า</label>
+                        <label for="product_name" class="col-form-label">ชื่อสินค้า</label>
                         <input type="text" name="pd_name" class="form-control" id="pdname" value="{{$pd->pd_name}}">
                         <label for="productcount" class="col-form-label">จำนวนสินค้า</label>
                         <input type="number" name="pd_count" class="form-control" id="pdcount" value="{{$pd->pd_count}}">
